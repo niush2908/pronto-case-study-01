@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nishit Verma × Pronto — Notes</title>
+<meta name="description" content="Notes for Pronto: an outside-in view built from public sources, to be tested with you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+
+    --green:#048a4c;
+    --green-deep:#036c3c;
+    --green-tint:#eef6f1;
+    --ink:#1c1c1c;
+    --body:#3a3d41;
+    --muted:#5f6368;
+    --faint:#9ca3af;
+    --line:#dde5ed;
+    --line-soft:#eaeef2;
+    --bg:#ffffff;
+    --bg-alt:#f7f9fb;
+    --card:#ffffff;
+    --cost:#c23b32;
+    --cost-tint:#fbeeed;
+    --amber:#b26a00;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --display:'Lexend','Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --wrap:1060px;
+    --shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);
+  }
+  *,*::before,*::after{box-sizing:inherit}
+  html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 78px);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--body);
+    font-family:var(--sans);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+
+  /* ---------- Layout ---------- */
+  .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:clamp(20px,5vw,44px)}
+  section{padding-block:clamp(52px,8vw,88px);border-top:1px solid var(--line-soft)}
+  section:first-of-type{border-top:0}
+  .band{background:var(--bg-alt)}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    padding-top:env(safe-area-inset-top,0px);
+    background:color-mix(in srgb,var(--bg) 90%,transparent);
+    backdrop-filter:saturate(1.4) blur(10px);
+    -webkit-backdrop-filter:saturate(1.4) blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .bar{max-width:var(--wrap);margin-inline:auto;padding:13px clamp(20px,5vw,44px);
+    display:flex;align-items:center;gap:18px;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:9px;font-family:var(--display);
+    font-weight:600;color:var(--ink);font-size:15.5px;letter-spacing:-.01em;white-space:nowrap;flex-shrink:0}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--green);flex-shrink:0}
+  .brand .to{color:var(--faint);font-weight:400}
+  nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;margin:-6px -8px;padding:6px 8px}
+  nav::-webkit-scrollbar{display:none}
+  nav a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;
+    padding:6px 11px;border-radius:999px;white-space:nowrap;transition:color .15s,background .15s;cursor:pointer}
+  nav a:hover{color:var(--ink)}
+  nav a.active{color:var(--green-deep);background:var(--green-tint)}
+  .progress{height:2px;background:var(--green);width:0%;transition:width .1s linear}
+
+  /* ---------- Type ---------- */
+  .eyebrow{font-family:var(--display);font-weight:600;font-size:12.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--green);margin:0 0 14px}
+  h1{font-family:var(--display);font-weight:600;color:var(--ink);letter-spacing:-.02em;
+    line-height:1.16;font-size:clamp(1.8rem,4.4vw,2.95rem);margin:0}
+  h2{font-family:var(--display);font-weight:600;color:var(--ink);letter-spacing:-.015em;
+    line-height:1.22;font-size:clamp(1.35rem,3vw,2rem);margin:0}
+  .lede{font-size:clamp(1.02rem,2.1vw,1.22rem);line-height:1.5;color:var(--body);margin:10px 0 0;max-width:64ch}
+  h3{font-family:var(--display);font-weight:600;color:var(--ink);font-size:1.05rem;margin:0 0 10px;letter-spacing:-.01em}
+  p{margin:0 0 14px}
+  p:last-child{margin-bottom:0}
+  sup{font-size:.62em;color:var(--faint);font-weight:600;padding-left:1px}
+  .em{color:var(--ink);font-weight:600}
+  em{font-style:italic}
+
+  /* ---------- Hero ---------- */
+  .hero{padding-top:clamp(44px,7vw,72px)}
+  .hero .meta{display:flex;flex-wrap:wrap;gap:8px 14px;color:var(--faint);font-size:14px;margin-bottom:20px}
+  .hero .meta b{color:var(--muted);font-weight:600}
+  .hero h1{max-width:19ch}
+  .tag{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:var(--green-deep);
+    background:var(--green-tint);border:1px solid color-mix(in srgb,var(--green) 22%,transparent);
+    padding:6px 13px;border-radius:999px;margin-bottom:24px}
+  .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+  /* ---------- Stat grid ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+  .stat .n{font-family:var(--display);font-weight:600;color:var(--ink);font-size:clamp(1.7rem,3.4vw,2.3rem);line-height:1;letter-spacing:-.02em}
+  .stat .l{font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.35}
+  @media (max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---------- Cards / grids ---------- */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:820px){.grid-2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow)}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);
+    font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .idx{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;
+    background:var(--green-tint);color:var(--green-deep);font-family:var(--display);font-weight:700;font-size:12.5px;flex-shrink:0}
+  .block-head{margin-bottom:30px}
+  .note{font-size:14px;color:var(--faint);line-height:1.5}
+  .callout{background:var(--green-tint);border:1px solid color-mix(in srgb,var(--green) 20%,transparent);
+    border-radius:12px;padding:20px 22px;color:var(--body)}
+  .callout .em{color:var(--green-deep)}
+
+  /* ---------- Comparison bars ---------- */
+  .bars{display:flex;flex-direction:column;gap:16px;margin-top:4px}
+  .barrow .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:7px}
+  .barrow .name{font-size:14px;color:var(--muted);font-weight:500}
+  .barrow .val{font-family:var(--display);font-weight:600;color:var(--ink);font-size:15px}
+  .track{height:12px;border-radius:999px;background:var(--line-soft);overflow:hidden}
+  .fill{height:100%;border-radius:999px;width:0;transition:width 1s cubic-bezier(.4,0,.2,1)}
+  .fill.g{background:var(--green)}
+  .fill.r{background:var(--cost)}
+  .fill.m{background:#9aa6b2}
+
+  .stack{display:flex;height:40px;border-radius:10px;overflow:hidden;border:1px solid var(--line);margin-top:2px}
+  .stack > span{display:flex;align-items:center;justify-content:center;color:#fff;font-size:12.5px;font-weight:600;font-family:var(--display);min-width:0;padding:0 6px;text-align:center;white-space:nowrap;overflow:hidden}
+  .seg-pay{background:var(--green)}
+  .seg-else{background:#9aa6b2}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:13px;color:var(--muted)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:middle}
+
+  /* ---------- Profit equation ---------- */
+  .eq{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin-top:2px}
+  .term{flex:1 1 150px;border:1px solid var(--line);border-radius:11px;padding:14px 16px;background:var(--card);position:relative}
+  .term .sign{position:absolute;top:-11px;left:16px;width:24px;height:24px;border-radius:50%;
+    display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:15px;color:#fff}
+  .term.plus .sign{background:var(--green)}
+  .term.minus .sign{background:var(--cost)}
+  .term .t{font-family:var(--display);font-weight:600;color:var(--ink);font-size:15px;margin:4px 0 3px}
+  .term .d{font-size:13px;color:var(--muted);line-height:1.4}
+
+  /* ---------- Lever list ---------- */
+  .lever{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:22px 0;border-top:1px solid var(--line-soft)}
+  .lever:first-child{border-top:0;padding-top:4px}
+  .lever .num{font-family:var(--display);font-weight:700;font-size:15px;color:var(--green-deep);
+    background:var(--green-tint);width:30px;height:30px;border-radius:8px;display:grid;place-items:center}
+  .lever .why{color:var(--muted);font-size:14.5px;margin:4px 0 10px}
+  .lever .src{font-size:13.5px;color:var(--body);background:var(--bg-alt);border:1px solid var(--line-soft);
+    border-radius:9px;padding:11px 14px;line-height:1.5}
+  .lever .src b{color:var(--ink);font-weight:600}
+
+  /* ---------- Proof ---------- */
+  .worldrow{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin:4px 0 30px}
+  .world{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--card)}
+  .world .h{font-family:var(--display);font-weight:600;color:var(--ink);font-size:14px;margin-bottom:6px}
+  .world .b{font-size:14px;color:var(--muted);line-height:1.45}
+  .vs{font-family:var(--display);font-weight:600;color:var(--faint);font-size:13px;text-align:center;line-height:1.3}
+  @media (max-width:760px){.worldrow{grid-template-columns:1fr;gap:10px}.vs{padding:2px 0}}
+
+  .proof{border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .proof > div{padding:20px 22px;border-top:1px solid var(--line-soft);display:grid;grid-template-columns:30px 1fr;gap:16px}
+  .proof > div:first-child{border-top:0}
+  .proof .pn{font-family:var(--display);font-weight:700;font-size:14px;color:var(--green-deep);
+    background:var(--green-tint);width:30px;height:30px;border-radius:8px;display:grid;place-items:center}
+  .proof .lname{font-family:var(--display);font-weight:600;color:var(--ink);margin-bottom:8px}
+  .proof .did{font-size:14.5px;color:var(--body);margin-bottom:12px;line-height:1.5}
+  .resultchips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+  .chip{font-size:13px;font-weight:600;font-family:var(--display);padding:5px 11px;border-radius:8px;border:1px solid transparent}
+  .chip.up{color:var(--green-deep);background:var(--green-tint);border-color:color-mix(in srgb,var(--green) 22%,transparent)}
+  .chip.down{color:var(--cost);background:var(--cost-tint);border-color:color-mix(in srgb,var(--cost) 22%,transparent)}
+  .chip.neutral{color:var(--ink);background:var(--bg-alt);border-color:var(--line)}
+  .diff{font-size:13.5px;color:var(--muted);line-height:1.45}
+  .diff b{color:var(--body);font-weight:600}
+  .diff .dl{display:block;font-family:var(--display);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:3px;font-weight:600}
+
+  /* ---------- Regulatory strip ---------- */
+  .reg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .reg > div{padding:16px 18px;border-left:1px solid var(--line-soft)}
+  .reg > div:first-child{border-left:0}
+  .reg .d{font-family:var(--display);font-weight:700;color:var(--amber);font-size:13px;margin-bottom:6px}
+  .reg .w{font-size:14px;color:var(--body);line-height:1.4}
+  @media (max-width:640px){.reg{grid-template-columns:1fr}.reg > div{border-left:0;border-top:1px solid var(--line-soft)}.reg > div:first-child{border-top:0}}
+
+  /* ---------- Deep dive ---------- */
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:820px){.dd{grid-template-columns:1fr}}
+  .ddcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow)}
+  .ddcard .step{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+  .ddcard h3{margin-bottom:12px;font-size:1.02rem}
+  .quotes{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+  .quote{border-left:3px solid var(--line);padding:4px 0 4px 14px;font-size:14px;color:var(--body)}
+  .quote b{color:var(--ink);font-weight:600}
+  .fixes{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-direction:column;gap:12px}
+  .fixes li{display:grid;grid-template-columns:auto 1fr;gap:12px;font-size:14.5px;color:var(--body);line-height:1.5}
+  .fixes .fn{width:24px;height:24px;border-radius:7px;background:var(--green-tint);color:var(--green-deep);
+    font-family:var(--display);font-weight:700;font-size:12.5px;display:grid;place-items:center}
+  .fixes b{color:var(--ink);font-weight:600}
+  .money{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:2px 0 10px}
+  .money .big{font-family:var(--display);font-weight:600;font-size:clamp(1.8rem,3.8vw,2.4rem);color:var(--ink);line-height:1;letter-spacing:-.02em}
+  .money .cap{font-size:13.5px;color:var(--muted)}
+
+  /* ---------- Plan table ---------- */
+  .plan{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;
+    border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:var(--card)}
+  .plan th,.plan td{text-align:left;vertical-align:top;padding:13px 16px;border-top:1px solid var(--line-soft)}
+  .plan thead th{border-top:0;background:var(--bg-alt);font-family:var(--display);font-weight:600;
+    font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+  .plan tbody td,.plan tbody th{font-size:13.5px;line-height:1.45;color:var(--body);font-weight:400}
+  .plan .movecell{display:flex;align-items:center;gap:11px}
+  .mn{font-family:var(--display);font-weight:700;color:#fff;background:var(--green);width:30px;height:30px;
+    border-radius:8px;display:grid;place-items:center;font-size:14px;flex-shrink:0}
+  .plan .mt{font-family:var(--display);font-weight:600;color:var(--ink);font-size:14.5px;letter-spacing:-.01em;line-height:1.25}
+  .plan .ms{font-size:12px;color:var(--muted);margin-top:1px}
+  .plan .hi{font-family:var(--display);font-weight:600;color:var(--green-deep)}
+  @media (max-width:860px){
+    .plan{border:0;box-shadow:none;background:transparent}
+    .plan colgroup,.plan thead{display:none}
+    .plan tbody,.plan tr,.plan td,.plan th{display:block}
+    .plan tr{border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:var(--card);margin-bottom:14px}
+    .plan .movecell{padding:15px 18px;background:var(--bg-alt);border-bottom:1px solid var(--line-soft);border-top:0}
+    .plan td{border-top:1px solid var(--line-soft);display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:start;padding:13px 18px}
+    .plan td::before{content:attr(data-l);font-family:var(--display);font-size:11px;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--faint);font-weight:600;line-height:1.5}
+  }
+  @media (max-width:520px){
+    .plan td{grid-template-columns:1fr;gap:3px}
+  }
+  .plan-note{font-size:13px;color:var(--muted);line-height:1.5;margin-top:14px}
+  .plan-note b{color:var(--ink);font-weight:600}
+
+  /* ---------- 90-day phases ---------- */
+  .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px}
+  @media (max-width:760px){.phases{grid-template-columns:1fr}}
+  .phase{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--card);box-shadow:var(--shadow)}
+  .phase .when{font-family:var(--display);font-weight:700;font-size:12.5px;letter-spacing:.05em;color:var(--green-deep);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .phase .when::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+  .phase .txt{font-size:14.5px;color:var(--body);line-height:1.5}
+
+  /* ---------- Sources ---------- */
+  details.src-x{margin-top:26px;border-top:1px dashed var(--line);padding-top:14px}
+  details.src-x summary{cursor:pointer;list-style:none;font-family:var(--display);font-weight:600;font-size:13px;
+    letter-spacing:.04em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+  details.src-x summary::-webkit-details-marker{display:none}
+  details.src-x summary::before{content:"+";font-size:16px;color:var(--green);width:14px;display:inline-block}
+  details.src-x[open] summary::before{content:"–"}
+  details.src-x .body{font-size:12.5px;color:var(--faint);line-height:1.7;margin-top:12px}
+
+  /* ---------- CTA / footer ---------- */
+  .cta{text-align:center;padding-block:clamp(56px,9vw,96px)}
+  .cta h2{max-width:24ch;margin-inline:auto}
+  .cta .out{margin-top:16px;color:var(--muted);font-size:15px}
+  .cta .actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-weight:600;font-size:15px;
+    padding:13px 24px;border-radius:11px;text-decoration:none;transition:transform .12s,background .15s,border-color .15s;border:1px solid transparent}
+  .btn.primary{background:var(--green);color:#fff;box-shadow:0 2px 8px color-mix(in srgb,var(--green) 40%,transparent)}
+  .btn.primary:hover{background:var(--green-deep)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--green);color:var(--green-deep)}
+  .btn:active{transform:translateY(1px)}
+  footer{border-top:1px solid var(--line-soft);padding-block:24px;background:var(--bg-alt)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;color:var(--faint);font-size:13.5px}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover{color:var(--green-deep);border-bottom-color:var(--green)}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .fill{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <div class="brand"><span class="dot"></span>Nishit Verma <span class="to">→ Pronto</span></div>
+    <nav aria-label="Sections">
+      <a href="#situation" class="active">Situation</a>
+      <a href="#diagnosis">Diagnosis</a>
+      <a href="#proof">Proof</a>
+      <a href="#verified">Pronto Verified</a>
+      <a href="#plan">Plan</a>
+    </nav>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main>
+
+<!-- SITUATION -->
+<section id="situation" class="hero">
+  <div class="wrap">
+    <span class="tag">An outside-in view built from public sources, to be tested with you</span>
+    <div class="meta"><span><b>Nishit Verma</b></span><span>Notes for Pronto</span></div>
+    <p class="eyebrow">Situation</p>
+    <h1>Pronto has proven demand. The next test is making each micromarket profitable, with Pronto Verified as a second engine.</h1>
+    <div class="stats" data-animate>
+      <div class="stat"><div class="n">~60K</div><div class="l">orders/day, up from ~1K/day a year earlier<sup>1</sup></div></div>
+      <div class="stat"><div class="n">11</div><div class="l">cities</div></div>
+      <div class="stat"><div class="n">20</div><div class="l">services<sup>2</sup></div></div>
+      <div class="stat"><div class="n">$200M</div><div class="l">valuation after ~$60M raised<sup>3</sup></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLICATION -->
+<section class="band">
+  <div class="wrap">
+    <div class="block-head">
+      <p class="eyebrow">Complication</p>
+      <h2>Every player loses money on each order. The market leader loses ₹346 on a ₹138 order.<sup>4</sup></h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="kicker">Cost to serve, one order</div>
+        <div class="bars" data-animate>
+          <div class="barrow">
+            <div class="top"><span class="name">Order value</span><span class="val">₹138</span></div>
+            <div class="track"><div class="fill g" data-w="28"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="top"><span class="name">Cost to serve</span><span class="val">≈ ₹484</span></div>
+            <div class="track"><div class="fill r" data-w="100"></div></div>
+          </div>
+        </div>
+        <p class="note" style="margin-top:16px"><span class="em" style="color:var(--cost)">₹346 loss per order.</span> Cost to serve implied from the ₹346 loss on a ₹138 order.<sup>4</sup></p>
+      </div>
+
+      <div class="card">
+        <div class="kicker">The three players together burn</div>
+        <div class="money"><span class="big" style="color:var(--cost)">~₹150 cr</span><span class="cap">/ month<sup>5</sup></span></div>
+        <p style="font-size:14.5px;color:var(--body)">Rivals have more cash — <span class="em">Snabbit ~$112M raised; Urban Company is publicly listed</span>.<sup>6</sup></p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="kicker">New labour and data-privacy costs arrive in 2026–27<sup>7</sup></div>
+      <div class="reg">
+        <div><div class="d">May 2026</div><div class="w">Social-security rules notified</div></div>
+        <div><div class="d">Nov 2026</div><div class="w">DPDP consent obligations</div></div>
+        <div><div class="d">May 2027</div><div class="w">Full DPDP obligations</div></div>
+      </div>
+    </div>
+
+    <details class="src-x">
+      <summary>Sources</summary>
+      <div class="body">1 · Founder interview, TechCrunch (Mar 2026); Inc42 (Aug 2026). &nbsp; 2 · withpronto.com (Sep 2026). &nbsp; 3 · Series B extension (May 2026). &nbsp; 4 · Urban Company InstaHelp, Q1 FY27 shareholder letter. &nbsp; 5 · Industry estimate for June 2026, as cited by Urban Company. &nbsp; 6 · Public funding disclosures. &nbsp; 7 · Social Security Code levy of 1–2% of turnover (rules notified May 2026); DPDP obligations Nov 2026 and May 2027.</div>
+    </details>
+  </div>
+</section>
+
+<!-- RESOLUTION -->
+<section>
+  <div class="wrap">
+    <div class="block-head"><p class="eyebrow">Resolution</p></div>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="idx">1</span>&nbsp; Win one micromarket at a time, using three operating levers</h3>
+        <p style="font-size:15px;color:var(--muted)">The three levers are set out next.</p>
+      </div>
+      <div class="card">
+        <h3><span class="idx">2</span>&nbsp; Turn Pronto Verified from an option into a revenue line</h3>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:18px">
+      <p style="margin:0"><span class="em">Micromarket</span> = the neighbourhood around one Pronto hub. <span class="em">70–80% of early demand came from within 500 m of a hub</span><sup>8</sup>, so a Pro's travel time, and so their cost, depends on how dense demand is in that cluster. That's why rivals say <em>"you win micro markets, not cities"</em>.<sup>9</sup></p>
+    </div>
+    <details class="src-x">
+      <summary>Sources</summary>
+      <div class="body">8 · Pronto launch coverage. &nbsp; 9 · Snabbit CEO interview.</div>
+    </details>
+  </div>
+</section>
+
+<!-- DIAGNOSIS -->
+<section id="diagnosis" class="band">
+  <div class="wrap">
+    <div class="block-head">
+      <p class="eyebrow">Diagnosis</p>
+      <h2>Three operating levers decide whether a micromarket makes money.</h2>
+    </div>
+
+    <div class="card" style="margin-bottom:22px">
+      <div class="kicker">Profit per order</div>
+      <div class="eq" data-animate>
+        <div class="term plus"><span class="sign">+</span><div class="t">Order value</div></div>
+        <div class="term minus"><span class="sign">−</span><div class="t">Pro cost</div><div class="d">Billed time + paid idle time</div></div>
+        <div class="term minus"><span class="sign">−</span><div class="t">Discounts</div></div>
+        <div class="term minus"><span class="sign">−</span><div class="t">Quality cost</div><div class="d">Redos, refunds, churn</div></div>
+        <div class="term plus"><span class="sign">+</span><div class="t">Data revenue</div><div class="d">Pronto Verified</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="lever">
+        <span class="num">1</span>
+        <div>
+          <h3 style="margin-bottom:2px">Utilisation: share of paid Pro hours that are actually billed</h3>
+          <p class="why">Pros are paid for the full shift whether booked or not, so every idle hour is pure cost.</p>
+          <div class="src"><b>Where the number comes from:</b> Pros are paid ₹150–190/hr for 5–6 bookings per 8-hr shift, so a 30-min job costs ₹90–95 in pay alone.<sup>1</sup></div>
+        </div>
+      </div>
+      <div class="lever">
+        <span class="num">2</span>
+        <div>
+          <h3 style="margin-bottom:2px">Pro quality and retention</h3>
+          <p class="why">Redos and Pro churn raise cost per order and slow down supply.</p>
+          <div class="src"><b>Where the number comes from:</b> 43% of category app downloads but ~25% of orders.<sup>2</sup> Supply and fulfilment lag behind demand.</div>
+        </div>
+      </div>
+      <div class="lever">
+        <span class="num">3</span>
+        <div>
+          <h3 style="margin-bottom:2px">Data product: Pronto Verified</h3>
+          <p class="why">Opt-in, camera-recorded sessions (~2× Pro pay, premium price) whose anonymised footage trains robots.</p>
+          <div class="src"><b>Where the number comes from:</b> Lachy Groom (co-founder of Physical Intelligence) led the May 2026 round, and an investor memo cites physical-AI data.<sup>3</sup></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:18px">
+      <div class="card">
+        <div class="kicker">Utilisation · where a ~₹138 order goes<sup>1</sup></div>
+        <div class="stack" data-animate>
+          <span class="seg-pay" data-w="68">₹90–95 Pro pay</span>
+          <span class="seg-else" data-w="32">~₹43–48</span>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--green)"></i>Pro pay for a 30-min job</span>
+          <span><i style="background:#9aa6b2"></i>Everything else</span>
+        </div>
+        <p class="note" style="margin-top:12px">Everything else = idle time, discounts, support and all other costs · derived: ₹138 − ₹90–95.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Supply gap · Pronto's share of the category<sup>2</sup></div>
+        <div class="bars" data-animate>
+          <div class="barrow">
+            <div class="top"><span class="name">App downloads</span><span class="val">43%</span></div>
+            <div class="track"><div class="fill g" data-w="43"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="top"><span class="name">Orders</span><span class="val">~25%</span></div>
+            <div class="track"><div class="fill m" data-w="25"></div></div>
+          </div>
+        </div>
+        <p class="note" style="margin-top:12px">Demand is arriving; fulfilment lags.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:18px">
+      <p style="margin:0">Pricing is a lever too, but it's set by the market. <span class="em">Operations decides whether margins hold at scale.</span></p>
+    </div>
+    <details class="src-x">
+      <summary>Sources</summary>
+      <div class="body">1 · Pronto pay data, Business Standard / Storyboard18 (2026); Urban Company Q1 FY27. &nbsp; 2 · Morgan Stanley app-download data (Mar 2026); July 2026 order split, via Moneycontrol (unverified). &nbsp; 3 · Glade Brook investor memo, as reported.</div>
+    </details>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="block-head">
+      <p class="eyebrow">Proof</p>
+      <h2>I've solved smaller, remote versions of these problems. The principles carry over, but the playbook needs rebuilding.</h2>
+    </div>
+
+    <div class="worldrow">
+      <div class="world">
+        <div class="h">My world</div>
+        <div class="b">800+ remote freelancers · 15 AI data programs · screen-based work</div>
+      </div>
+      <div class="vs">≠ scale<br><span style="color:var(--green-deep)">= problems</span></div>
+      <div class="world">
+        <div class="h">Pronto's world</div>
+        <div class="b">In-person Pros · inside homes · 15-minute arrival</div>
+      </div>
+    </div>
+
+    <div class="proof">
+      <div>
+        <span class="pn">1</span>
+        <div>
+          <div class="lname">Utilisation</div>
+          <p class="did">A large program stalled mid-delivery. I found the bottlenecks and redesigned the workflow end to end.</p>
+          <div class="resultchips">
+            <span class="chip up">▲ Output +50%</span>
+            <span class="chip down">▼ Delivery cost −40%</span>
+          </div>
+          <div class="diff"><span class="dl">What's different at Pronto</span>Physical travel time, hourly demand peaks, guaranteed shifts.</div>
+        </div>
+      </div>
+      <div>
+        <span class="pn">2</span>
+        <div>
+          <div class="lname">Quality and retention</div>
+          <p class="did">Freelancers were paid for volume, so quality suffered. I linked pay to accepted work.</p>
+          <div class="resultchips">
+            <span class="chip neutral">Yield 42% before → <b style="color:var(--green-deep)">63% after</b></span>
+            <span class="chip neutral">At the same budget and deadline</span>
+          </div>
+          <div class="diff"><span class="dl">What's different at Pronto</span>Work inside homes, safety, one-to-one trust with customers.</div>
+        </div>
+      </div>
+      <div>
+        <span class="pn">3</span>
+        <div>
+          <div class="lname">Data product</div>
+          <p class="did">Grew a $300K pilot into a $1M+/yr business line. Now building a 10,000-hour household-task robot data program.</p>
+          <div class="resultchips">
+            <span class="chip up">70% of 15 paid pilots converted into ongoing contracts</span>
+            <span class="chip up">$300K → $1M+/quarter</span>
+          </div>
+          <div class="diff"><span class="dl">What's different at Pronto</span>Consent inside homes, DPDP compliance, public scrutiny.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:16px"><span class="em">Yield</span> = share of submitted work that passes quality review. &nbsp;·&nbsp; <span class="em">Pilot-to-production</span> = a paid trial that turns into a recurring contract.</div>
+    <details class="src-x">
+      <summary>Source</summary>
+      <div class="body">Deccan AI internal delivery data, 2025–26.</div>
+    </details>
+  </div>
+</section>
+
+<!-- DEEP DIVE -->
+<section id="verified" class="band">
+  <div class="wrap">
+    <div class="block-head">
+      <p class="eyebrow">Deep dive · Lever 3</p>
+      <h2>The Pronto Verified backlash is a trust-design problem, not a data problem. Fixing it protects a potential second revenue line.</h2>
+    </div>
+
+    <div class="dd">
+      <div class="ddcard">
+        <div class="step">01 · Problem</div>
+        <h3>A small pilot became a sector-wide trust story</h3>
+        <div class="money"><span class="big">0.1%</span><span class="cap">of customers were ever in the pilot<sup>1</sup></span></div>
+        <p style="font-size:14.5px">Recording inside homes → MeitY reportedly took cognisance.<sup>1</sup> Rivals now sell <em>"we never record"</em> as a trust feature, against Pronto.</p>
+        <div class="quotes">
+          <div class="quote"><b>Urban Company:</b> "we do not" record inside customers' homes.<sup>2</sup></div>
+          <div class="quote"><b>Snabbit:</b> "No customer's home has ever been recorded by us, in any way."<sup>2</sup></div>
+        </div>
+      </div>
+
+      <div class="ddcard">
+        <div class="step">02 · Real issue</div>
+        <h3>The consent was built, but customers couldn't see it or follow it</h3>
+        <p style="font-size:14.5px;margin-bottom:10px"><span class="em">One camera, two purposes.</span></p>
+        <div class="quotes">
+          <div class="quote"><b>Verified session</b> — what customers thought they bought: quality and safety.</div>
+          <div class="quote"><b>AI training data</b> — a second purpose, sold to US AI and robotics companies.<sup>3</sup></div>
+        </div>
+        <p style="font-size:14.5px;margin-top:12px">Surfaced via investor documents and a viral video, not from Pronto.<sup>1</sup> Opt-in per booking, PII stripped<sup>3</sup>, but the second purpose wasn't obvious.</p>
+      </div>
+
+      <div class="ddcard">
+        <div class="step">03 · Why solve it</div>
+        <h3>The data line could rival the core business</h3>
+        <div class="money"><span class="big" style="color:var(--green-deep)">$9–22M/yr</span><span class="cap">for every 1,000 usable hours/day</span></div>
+        <p class="note" style="margin-bottom:14px">Derived: 1,000 hrs × 365 days × $25–60/hr, the 2026 benchmark for egocentric household-task video.<sup>4</sup></p>
+        <div class="bars" data-animate>
+          <div class="barrow">
+            <div class="top"><span class="name">Core house-help order value (est.)<sup>5</sup></span><span class="val">≈ $24M/yr</span></div>
+            <div class="track"><div class="fill m" data-w="100"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="top"><span class="name">Data line at 1,000 hrs/day</span><span class="val">$9–22M</span></div>
+            <div class="track"><div class="fill g" data-w="65"></div></div>
+          </div>
+        </div>
+        <p style="font-size:14px;margin-top:14px">Pronto already runs thousands of Verified sessions a day.<sup>3</sup> Unresolved, DPDP penalties reach <span class="em" style="color:var(--cost)">₹250 cr</span>, obligations from Nov 2026.<sup>6</sup></p>
+      </div>
+
+      <div class="ddcard">
+        <div class="step">04 · Fix</div>
+        <h3>Make consent visible, separate the two purposes, and prove it</h3>
+        <ul class="fixes">
+          <li><span class="fn">1</span><span><b>Split the product:</b> safety-only "Verified" (no training, auto-deleted), plus a separate, paid data-partner program.</span></li>
+          <li><span class="fn">2</span><span><b>Share the value:</b> discounts for customers who opt in, with full transparency that the discount is funded by the data program.</span></li>
+          <li><span class="fn">3</span><span><b>Make consent visible:</b> notice before every session, camera indicator, one-tap withdraw and delete. DPDP-ready (Nov 2026).<sup>6</sup></span></li>
+          <li><span class="fn">4</span><span><b>Prove it:</b> third-party privacy audit, public transparency report, proactive MeitY engagement.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:18px">
+      <p style="margin:0">The goal isn't to stop Pronto Verified. It's to make Pronto <span class="em">the company that pays for household data openly</span> and can show proper consent for every session.</p>
+    </div>
+    <details class="src-x">
+      <summary>Sources</summary>
+      <div class="body">1 · Business Standard, "Pronto admits to recording household tasks for AI training after backlash" (May 2026): 0.1% pilot reach; surfaced via Entrackr report on Glade Brook investor documents; MeitY reportedly took cognisance. &nbsp; 2 · BusinessToday (25 May 2026): statements by Urban Company CEO and Snabbit founder. &nbsp; 3 · Forbes (29 Jul 2026): double Pro pay, per-booking opt-in, PII stripped, buyers are US AI and robotics firms, thousands of Verified orders a day. &nbsp; 4 · DataX Power, "Humanoid robot data collection costs: 2026 benchmarks" (egocentric wearable programs $25–60 per collected hour; vendor benchmark). &nbsp; 5 · Estimated from ~1.25M orders/month × ₹138 average order value (July 2026 order data; Urban Company Q1 FY27), ≈ ₹200 cr/year. &nbsp; 6 · DPDP Rules 2025.</div>
+    </details>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section id="plan">
+  <div class="wrap">
+    <div class="block-head">
+      <p class="eyebrow">Plan</p>
+      <h2>Three moves, tested in 3 hubs over 90 days, would make micromarkets profitable and Pronto Verified sellable.</h2>
+    </div>
+
+    <table class="plan">
+      <colgroup>
+        <col style="width:16%"><col style="width:19%"><col style="width:30%"><col style="width:19%"><col style="width:16%">
+      </colgroup>
+      <thead>
+        <tr><th scope="col">Move</th><th scope="col">Hypothesis</th><th scope="col">What I'd do</th><th scope="col">Success metric</th><th scope="col">Why I believe it</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><div class="movecell"><span class="mn">1</span><div><div class="mt">Fill the idle hours</div><div class="ms">Utilisation</div></div></div></th>
+          <td data-l="Hypothesis">Idle time falls in the midday dip between morning and evening demand peaks <span style="color:var(--faint)">(to be confirmed with Pronto's hourly data)</span>.</td>
+          <td data-l="What I'd do">Split and peak-hour shifts; move scheduled and recurring bookings into the dip with a small price incentive; group jobs by building or housing society to cut walking time.</td>
+          <td data-l="Success metric"><span class="hi">Billed hours ÷ paid hours.</span></td>
+          <td data-l="Why I believe it"><span class="hi">Output +50%, cost −40%.</span></td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="movecell"><span class="mn">2</span><div><div class="mt">Pay for quality on top of guaranteed hours</div><div class="ms">Pro quality and retention</div></div></div></th>
+          <td data-l="Hypothesis">The guaranteed shift keeps Pros from leaving, but it doesn't reward quality.</td>
+          <td data-l="What I'd do">Keep the guaranteed base and add a bonus linked to ratings and redo rate; Pro career tiers: Pro → Senior Pro → Trainer → Hub lead; send recurring, high-value customers to top-tier Pros; retrain automatically when ratings drop.</td>
+          <td data-l="Success metric"><span class="hi">Redo and refund rate; Pro retention at 90 days.</span></td>
+          <td data-l="Why I believe it"><span class="hi">Yield 42% → 63%.</span></td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="movecell"><span class="mn">3</span><div><div class="mt">Turn Pronto Verified into a data product</div><div class="ms">Data revenue · see deep dive</div></div></div></th>
+          <td data-l="Hypothesis">Robotics labs pay for usable, consented, well-labelled footage, not raw video.</td>
+          <td data-l="What I'd do">A task list matched to what labs actually buy; quality checks on every clip (task completed, camera coverage, labels); a consent process ready for the DPDP rules; price per hour of usable footage; pilot with 1–2 labs.</td>
+          <td data-l="Success metric"><span class="hi">Usable hours/week; consent opt-in rate; revenue per session.</span></td>
+          <td data-l="Why I believe it"><span class="hi">10k-hour robot program; 70% of pilots converted.</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="plan-note">One extra booking per shift lowers labour cost per booking by <b>~15%</b>. A shift costs ₹800–900 and covers 5–6 bookings, so each booking costs ≈ ₹155 in labour. At 6–7 bookings, that falls to ≈ ₹131. Illustrative, based on reported Pro pay and booking rates.</p>
+
+    <div class="phases" data-animate style="margin-top:26px">
+      <div class="phase">
+        <div class="when">Days 0–30 · Diagnose</div>
+        <div class="txt">Profit-and-loss view per micromarket. Pick 3 test hubs: one dense, one mid-density, one new.</div>
+      </div>
+      <div class="phase">
+        <div class="when">Days 31–60 · Test</div>
+        <div class="txt">Run Moves 1 and 2 in those hubs; compare results against the other hubs. Scope Move 3 with 1–2 labs.</div>
+      </div>
+      <div class="phase">
+        <div class="when">Days 61–90 · Decide</div>
+        <div class="txt">Scale what beat the other hubs; drop what didn't. Go/no-go thresholds set from the Day-30 data.</div>
+      </div>
+    </div>
+
+    <details class="src-x">
+      <summary>Sources</summary>
+      <div class="body">Pro pay of ₹800–900 per 8-hour shift and 5–6 bookings per shift from Business Standard / Storyboard18 (2026); DPDP deadlines from the DPDP Rules 2025; result figures from Deccan AI internal delivery data, 2025–26.</div>
+    </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta band">
+  <div class="wrap">
+    <h2>These are hypotheses from the outside. I'd welcome 30 minutes to test them against your data.</h2>
+    <div class="actions">
+      <a class="btn primary" href="https://calendar.app.google/QatAFTcWJXYPqHUp8" target="_blank" rel="noopener">Set up 30 minutes</a>
+      <a class="btn ghost" href="https://linkedin.com/in/nishit-verma-077560179" target="_blank" rel="noopener">Connect on LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Nishit Verma · Hyderabad</span>
+    <span><a href="https://linkedin.com/in/nishit-verma-077560179" target="_blank" rel="noopener">linkedin.com/in/nishit-verma-077560179</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var navEl = document.querySelector('nav');
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav a'));
+
+  // Smooth in-page scroll — no hash navigation, so it works inside embedded frames too
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  // Reading progress
+  var pb = document.getElementById('progress');
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var p = max > 0 ? h.scrollTop / max : 0;
+    pb.style.width = (Math.min(1,Math.max(0,p))*100).toFixed(2) + '%';
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // Active section — only moves the nav's own horizontal scroll, never the page
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var secs = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); }).filter(Boolean);
+  if('IntersectionObserver' in window){
+    var navObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(l){ l.classList.remove('active'); });
+          var a = map[e.target.id];
+          if(a){
+            a.classList.add('active');
+            if(navEl){ navEl.scrollTo({left: a.offsetLeft - navEl.clientWidth/2 + a.offsetWidth/2, behavior:'smooth'}); }
+          }
+        }
+      });
+    }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+    secs.forEach(function(s){ navObs.observe(s); });
+  }
+
+  // Fill data bars when in view (respects reduced motion)
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function paint(g){
+    g.querySelectorAll('.fill').forEach(function(f){ f.style.width = (f.getAttribute('data-w')||0)+'%'; });
+    g.querySelectorAll('.stack > span').forEach(function(s){ s.style.flex = '0 0 '+(s.getAttribute('data-w')||0)+'%'; s.style.maxWidth=(s.getAttribute('data-w')||0)+'%'; });
+  }
+  var groups = document.querySelectorAll('[data-animate]');
+  if(reduce || !('IntersectionObserver' in window)){
+    groups.forEach(paint);
+  } else {
+    var fillObs = new IntersectionObserver(function(entries,obs){
+      entries.forEach(function(e){ if(e.isIntersecting){ paint(e.target); obs.unobserve(e.target); } });
+    }, {threshold:0.25});
+    groups.forEach(function(g){ fillObs.observe(g); });
+  }
+})();
+</script>
+</body>
+</html>
