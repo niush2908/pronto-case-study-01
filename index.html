@@ -75,8 +75,8 @@
   /* ---------- Type ---------- */
   .eyebrow{font-family:var(--display);font-weight:600;font-size:12.5px;letter-spacing:.14em;
     text-transform:uppercase;color:var(--green);margin:0 0 14px}
-  h1{font-family:var(--display);font-weight:600;color:var(--ink);letter-spacing:-.02em;
-    line-height:1.16;font-size:clamp(1.8rem,4.4vw,2.95rem);margin:0}
+  h1{font-family:var(--display);font-weight:600;color:var(--ink);letter-spacing:-.018em;
+    line-height:1.2;font-size:clamp(1.45rem,3vw,2.2rem);margin:0}
   h2{font-family:var(--display);font-weight:600;color:var(--ink);letter-spacing:-.015em;
     line-height:1.22;font-size:clamp(1.35rem,3vw,2rem);margin:0}
   .lede{font-size:clamp(1.02rem,2.1vw,1.22rem);line-height:1.5;color:var(--body);margin:10px 0 0;max-width:64ch}
@@ -101,8 +101,39 @@
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
   .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
   .stat .n{font-family:var(--display);font-weight:600;color:var(--ink);font-size:clamp(1.7rem,3.4vw,2.3rem);line-height:1;letter-spacing:-.02em}
-  .stat .l{font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.35}
+  .stat .l{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.3}
   @media (max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---------- Compact Situation ---------- */
+  .hero-split{display:grid;grid-template-columns:1.55fr 1fr;gap:clamp(24px,4vw,46px);align-items:center;margin-top:4px}
+  @media (max-width:840px){.hero-split{grid-template-columns:1fr;gap:22px}}
+  .stats.compact{grid-template-columns:1fr 1fr;gap:12px;margin-top:0}
+  .stats.compact .stat{padding:15px 16px}
+  .stats.compact .n{font-size:clamp(1.5rem,3vw,2rem)}
+  .sit-sub{margin-top:clamp(28px,4vw,42px);padding-top:clamp(28px,4vw,42px);border-top:1px solid var(--line-soft)}
+  .block-head.tight{margin-bottom:16px}
+
+  /* Complication: one 3-cell panel */
+  .panel3{display:grid;grid-template-columns:1.15fr 1fr 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:var(--card)}
+  .panel3 > div{padding:17px 18px;border-left:1px solid var(--line-soft)}
+  .panel3 > div:first-child{border-left:0}
+  @media (max-width:760px){.panel3{grid-template-columns:1fr}.panel3 > div{border-left:0;border-top:1px solid var(--line-soft)}.panel3 > div:first-child{border-top:0}}
+  .panel3 .kicker{margin-bottom:10px}
+  .seg-loss{background:var(--cost)}
+  .reg-mini > div{font-size:13px;color:var(--body);padding:6px 0;border-top:1px solid var(--line-soft);line-height:1.35}
+  .reg-mini > div:first-child{border-top:0;padding-top:0}
+  .reg-mini b{font-family:var(--display);font-weight:700;color:var(--amber);display:inline-block;min-width:72px}
+
+  /* Resolution: one panel, two steps + full-width footer */
+  .res-panel{border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:var(--card)}
+  .res-top{display:grid;grid-template-columns:1fr 1fr}
+  .res-top > div{display:grid;grid-template-columns:auto 1fr;gap:9px;align-items:center;padding:15px 16px;border-left:1px solid var(--line-soft)}
+  .res-top > div:first-child{border-left:0}
+  .res-top .idx{width:20px;height:20px;font-size:11.5px}
+  @media (max-width:640px){.res-top{grid-template-columns:1fr}.res-top > div{border-left:0;border-top:1px solid var(--line-soft)}.res-top > div:first-child{border-top:0}}
+  .res-top b{font-family:var(--display);font-weight:600;color:var(--ink);font-size:13px;line-height:1.3;letter-spacing:-.015em}
+  .res-foot{border-top:1px solid var(--line-soft);background:var(--green-tint);padding:15px 20px;font-size:14px;color:var(--body);line-height:1.5}
+  .res-foot .em{color:var(--green-deep)}
 
   /* ---------- Cards / grids ---------- */
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -209,14 +240,14 @@
   /* ---------- Plan table ---------- */
   .plan{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;
     border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:var(--card)}
-  .plan th,.plan td{text-align:left;vertical-align:top;padding:13px 16px;border-top:1px solid var(--line-soft)}
+  .plan th,.plan td{text-align:left;vertical-align:top;padding:12px 13px;border-top:1px solid var(--line-soft)}
   .plan thead th{border-top:0;background:var(--bg-alt);font-family:var(--display);font-weight:600;
-    font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
-  .plan tbody td,.plan tbody th{font-size:13.5px;line-height:1.45;color:var(--body);font-weight:400}
-  .plan .movecell{display:flex;align-items:center;gap:11px}
-  .mn{font-family:var(--display);font-weight:700;color:#fff;background:var(--green);width:30px;height:30px;
-    border-radius:8px;display:grid;place-items:center;font-size:14px;flex-shrink:0}
-  .plan .mt{font-family:var(--display);font-weight:600;color:var(--ink);font-size:14.5px;letter-spacing:-.01em;line-height:1.25}
+    font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+  .plan tbody td,.plan tbody th{font-size:13px;line-height:1.45;color:var(--body);font-weight:400}
+  .plan .movecell{display:flex;align-items:center;gap:9px}
+  .mn{font-family:var(--display);font-weight:700;color:#fff;background:var(--green);width:26px;height:26px;
+    border-radius:7px;display:grid;place-items:center;font-size:12.5px;flex-shrink:0}
+  .plan .mt{font-family:var(--display);font-weight:600;color:var(--ink);font-size:13.5px;letter-spacing:-.012em;line-height:1.22}
   .plan .ms{font-size:12px;color:var(--muted);margin-top:1px}
   .plan .hi{font-family:var(--display);font-weight:600;color:var(--green-deep)}
   @media (max-width:860px){
@@ -235,13 +266,10 @@
   .plan-note{font-size:13px;color:var(--muted);line-height:1.5;margin-top:14px}
   .plan-note b{color:var(--ink);font-weight:600}
 
-  /* ---------- 90-day phases ---------- */
-  .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px}
-  @media (max-width:760px){.phases{grid-template-columns:1fr}}
-  .phase{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--card);box-shadow:var(--shadow)}
-  .phase .when{font-family:var(--display);font-weight:700;font-size:12.5px;letter-spacing:.05em;color:var(--green-deep);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-  .phase .when::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
-  .phase .txt{font-size:14.5px;color:var(--body);line-height:1.5}
+  /* ---------- 90-day timeline table ---------- */
+  .ph-dot{width:9px;height:9px;border-radius:50%;background:var(--green);flex-shrink:0}
+  .plan .ph-stage{font-family:var(--display);font-weight:700;font-size:10.5px;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--green-deep);margin-top:2px}
 
   /* ---------- Sources ---------- */
   details.src-x{margin-top:26px;border-top:1px dashed var(--line);padding-top:14px}
@@ -293,89 +321,72 @@
 
 <main>
 
-<!-- SITUATION -->
-<section id="situation" class="hero">
+<!-- SITUATION (headliner + complication + resolution, combined) -->
+<section id="situation">
   <div class="wrap">
+
     <span class="tag">An outside-in view built from public sources, to be tested with you</span>
     <div class="meta"><span><b>Nishit Verma</b></span><span>Notes for Pronto</span></div>
-    <p class="eyebrow">Situation</p>
-    <h1>Pronto has proven demand. The next test is making each micromarket profitable, with Pronto Verified as a second engine.</h1>
-    <div class="stats" data-animate>
-      <div class="stat"><div class="n">~60K</div><div class="l">orders/day, up from ~1K/day a year earlier<sup>1</sup></div></div>
-      <div class="stat"><div class="n">11</div><div class="l">cities</div></div>
-      <div class="stat"><div class="n">20</div><div class="l">services<sup>2</sup></div></div>
-      <div class="stat"><div class="n">$200M</div><div class="l">valuation after ~$60M raised<sup>3</sup></div></div>
-    </div>
-  </div>
-</section>
 
-<!-- COMPLICATION -->
-<section class="band">
-  <div class="wrap">
-    <div class="block-head">
-      <p class="eyebrow">Complication</p>
-      <h2>Every player loses money on each order. The market leader loses ₹346 on a ₹138 order.<sup>4</sup></h2>
+    <div class="hero-split">
+      <div>
+        <p class="eyebrow">Situation</p>
+        <h1>Pronto has proven demand. The next test is making each micromarket profitable, with Pronto Verified as a second engine.</h1>
+      </div>
+      <div class="stats compact" data-animate>
+        <div class="stat"><div class="n">~60K</div><div class="l">orders/day, up from ~1K/day a year earlier<sup>1</sup></div></div>
+        <div class="stat"><div class="n">11</div><div class="l">cities</div></div>
+        <div class="stat"><div class="n">20</div><div class="l">services<sup>2</sup></div></div>
+        <div class="stat"><div class="n">$200M</div><div class="l">valuation after ~$60M raised<sup>3</sup></div></div>
+      </div>
     </div>
 
-    <div class="grid-2">
-      <div class="card">
-        <div class="kicker">Cost to serve, one order</div>
-        <div class="bars" data-animate>
-          <div class="barrow">
-            <div class="top"><span class="name">Order value</span><span class="val">₹138</span></div>
-            <div class="track"><div class="fill g" data-w="28"></div></div>
+    <!-- Complication -->
+    <div class="sit-sub">
+      <div class="block-head tight">
+        <p class="eyebrow">Complication</p>
+        <h2>Every player loses money on each order. The market leader loses ₹346 on a ₹138 order.<sup>4</sup></h2>
+      </div>
+      <div class="panel3" data-animate>
+        <div>
+          <div class="kicker">Cost to serve, one order</div>
+          <div class="stack" data-animate>
+            <span class="seg-pay" data-w="28">₹138</span>
+            <span class="seg-loss" data-w="72">₹346 loss</span>
           </div>
-          <div class="barrow">
-            <div class="top"><span class="name">Cost to serve</span><span class="val">≈ ₹484</span></div>
-            <div class="track"><div class="fill r" data-w="100"></div></div>
+          <p class="note" style="margin-top:10px">≈ ₹484 to serve a ₹138 order — a <span class="em" style="color:var(--cost)">₹346 loss</span>.<sup>4</sup></p>
+        </div>
+        <div>
+          <div class="kicker">The three players together burn</div>
+          <div class="money" style="margin:0 0 8px"><span class="big" style="color:var(--cost);font-size:clamp(1.6rem,3.4vw,2rem)">~₹150 cr</span><span class="cap">/ month<sup>5</sup></span></div>
+          <p style="font-size:13px;color:var(--body);line-height:1.45">Rivals have more cash — Snabbit ~$112M raised; Urban Company is publicly listed.<sup>6</sup></p>
+        </div>
+        <div>
+          <div class="kicker">New labour &amp; data costs · 2026–27<sup>7</sup></div>
+          <div class="reg-mini">
+            <div><b>May 2026</b> Social-security rules notified</div>
+            <div><b>Nov 2026</b> DPDP consent obligations</div>
+            <div><b>May 2027</b> Full DPDP obligations</div>
           </div>
         </div>
-        <p class="note" style="margin-top:16px"><span class="em" style="color:var(--cost)">₹346 loss per order.</span> Cost to serve implied from the ₹346 loss on a ₹138 order.<sup>4</sup></p>
-      </div>
-
-      <div class="card">
-        <div class="kicker">The three players together burn</div>
-        <div class="money"><span class="big" style="color:var(--cost)">~₹150 cr</span><span class="cap">/ month<sup>5</sup></span></div>
-        <p style="font-size:14.5px;color:var(--body)">Rivals have more cash — <span class="em">Snabbit ~$112M raised; Urban Company is publicly listed</span>.<sup>6</sup></p>
       </div>
     </div>
 
-    <div class="card" style="margin-top:16px">
-      <div class="kicker">New labour and data-privacy costs arrive in 2026–27<sup>7</sup></div>
-      <div class="reg">
-        <div><div class="d">May 2026</div><div class="w">Social-security rules notified</div></div>
-        <div><div class="d">Nov 2026</div><div class="w">DPDP consent obligations</div></div>
-        <div><div class="d">May 2027</div><div class="w">Full DPDP obligations</div></div>
+    <!-- Resolution -->
+    <div class="sit-sub">
+      <div class="block-head tight"><p class="eyebrow">Resolution</p></div>
+      <div class="res-panel">
+        <div class="res-top">
+          <div><span class="idx">1</span><b>Win one micromarket at a time, using three operating levers</b></div>
+          <div><span class="idx">2</span><b>Turn Pronto Verified from an option into a revenue line</b></div>
+        </div>
+        <div class="res-foot"><span class="em">Micromarket</span> = the neighbourhood around one Pronto hub. <span class="em">70–80% of early demand came from within 500 m of a hub</span><sup>8</sup>, so a Pro's travel time, and so their cost, depends on how dense demand is in that cluster. That's why rivals say <em>"you win micro markets, not cities"</em>.<sup>9</sup></div>
       </div>
     </div>
 
     <details class="src-x">
       <summary>Sources</summary>
-      <div class="body">1 · Founder interview, TechCrunch (Mar 2026); Inc42 (Aug 2026). &nbsp; 2 · withpronto.com (Sep 2026). &nbsp; 3 · Series B extension (May 2026). &nbsp; 4 · Urban Company InstaHelp, Q1 FY27 shareholder letter. &nbsp; 5 · Industry estimate for June 2026, as cited by Urban Company. &nbsp; 6 · Public funding disclosures. &nbsp; 7 · Social Security Code levy of 1–2% of turnover (rules notified May 2026); DPDP obligations Nov 2026 and May 2027.</div>
-    </details>
-  </div>
-</section>
-
-<!-- RESOLUTION -->
-<section>
-  <div class="wrap">
-    <div class="block-head"><p class="eyebrow">Resolution</p></div>
-    <div class="grid-2">
-      <div class="card">
-        <h3><span class="idx">1</span>&nbsp; Win one micromarket at a time, using three operating levers</h3>
-        <p style="font-size:15px;color:var(--muted)">The three levers are set out next.</p>
-      </div>
-      <div class="card">
-        <h3><span class="idx">2</span>&nbsp; Turn Pronto Verified from an option into a revenue line</h3>
-      </div>
-    </div>
-
-    <div class="callout" style="margin-top:18px">
-      <p style="margin:0"><span class="em">Micromarket</span> = the neighbourhood around one Pronto hub. <span class="em">70–80% of early demand came from within 500 m of a hub</span><sup>8</sup>, so a Pro's travel time, and so their cost, depends on how dense demand is in that cluster. That's why rivals say <em>"you win micro markets, not cities"</em>.<sup>9</sup></p>
-    </div>
-    <details class="src-x">
-      <summary>Sources</summary>
-      <div class="body">8 · Pronto launch coverage. &nbsp; 9 · Snabbit CEO interview.</div>
+      <div class="body">1 · Founder interview, TechCrunch (Mar 2026); Inc42 (Aug 2026). &nbsp; 2 · withpronto.com (Sep 2026). &nbsp; 3 · Series B extension (May 2026). &nbsp; 4 · Urban Company InstaHelp, Q1 FY27 shareholder letter. &nbsp; 5 · Industry estimate for June 2026, as cited by Urban Company. &nbsp; 6 · Public funding disclosures. &nbsp; 7 · Social Security Code levy of 1–2% of turnover (rules notified May 2026); DPDP obligations Nov 2026 and May 2027. &nbsp; 8 · Pronto launch coverage. &nbsp; 9 · Snabbit CEO interview.</div>
     </details>
   </div>
 </section>
@@ -613,7 +624,7 @@
 
     <table class="plan">
       <colgroup>
-        <col style="width:16%"><col style="width:19%"><col style="width:30%"><col style="width:19%"><col style="width:16%">
+        <col style="width:21%"><col style="width:18%"><col style="width:27%"><col style="width:17%"><col style="width:17%">
       </colgroup>
       <thead>
         <tr><th scope="col">Move</th><th scope="col">Hypothesis</th><th scope="col">What I'd do</th><th scope="col">Success metric</th><th scope="col">Why I believe it</th></tr>
@@ -645,20 +656,26 @@
 
     <p class="plan-note">One extra booking per shift lowers labour cost per booking by <b>~15%</b>. A shift costs ₹800–900 and covers 5–6 bookings, so each booking costs ≈ ₹155 in labour. At 6–7 bookings, that falls to ≈ ₹131. Illustrative, based on reported Pro pay and booking rates.</p>
 
-    <div class="phases" data-animate style="margin-top:26px">
-      <div class="phase">
-        <div class="when">Days 0–30 · Diagnose</div>
-        <div class="txt">Profit-and-loss view per micromarket. Pick 3 test hubs: one dense, one mid-density, one new.</div>
-      </div>
-      <div class="phase">
-        <div class="when">Days 31–60 · Test</div>
-        <div class="txt">Run Moves 1 and 2 in those hubs; compare results against the other hubs. Scope Move 3 with 1–2 labs.</div>
-      </div>
-      <div class="phase">
-        <div class="when">Days 61–90 · Decide</div>
-        <div class="txt">Scale what beat the other hubs; drop what didn't. Go/no-go thresholds set from the Day-30 data.</div>
-      </div>
-    </div>
+    <table class="plan" style="margin-top:26px">
+      <colgroup><col style="width:26%"><col style="width:74%"></colgroup>
+      <thead>
+        <tr><th scope="col">Phase</th><th scope="col">What happens</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><div class="movecell"><span class="ph-dot"></span><div><div class="mt">Days 0–30</div><div class="ph-stage">Diagnose</div></div></div></th>
+          <td data-l="What happens">Profit-and-loss view per micromarket. Pick 3 test hubs: one dense, one mid-density, one new.</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="movecell"><span class="ph-dot"></span><div><div class="mt">Days 31–60</div><div class="ph-stage">Test</div></div></div></th>
+          <td data-l="What happens">Run Moves 1 and 2 in those hubs; compare results against the other hubs. Scope Move 3 with 1–2 labs.</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="movecell"><span class="ph-dot"></span><div><div class="mt">Days 61–90</div><div class="ph-stage">Decide</div></div></div></th>
+          <td data-l="What happens">Scale what beat the other hubs; drop what didn't. Go/no-go thresholds set from the Day-30 data.</td>
+        </tr>
+      </tbody>
+    </table>
 
     <details class="src-x">
       <summary>Sources</summary>
